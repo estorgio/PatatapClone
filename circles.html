@@ -11,34 +11,24 @@
 
     <script type="text/paperscript" canvas="canvas">
 
+        var circles = [];
+
         function onKeyDown(event) {
             var maxPoint = new Point(view.size.width, view.size.height);
             var randomPoint = Point.random();
             var point = maxPoint * randomPoint;
 
-            var colors = [
-                'white',
-                'yellow',
-                'orange',
-                'red',
-                'skyblue',
-                'green',
-                'blue',
-                'violet'
-            ];
-
-            var size = Math.floor(Math.random() * 7);
-
-            new Path.Circle(point, size)
-                .fillColor = colors[Math.floor(Math.random() * colors.length)];
+            var newCircle = new Path.Circle(point, 500);
+            newCircle.fillColor = "purple";
+            circles.push(newCircle);
         }
 
-        //for (var y = 0; y < 10; y++) {
-        //    for (var x = 0; x < 10; x++) {
-        //        new Path.Circle(new Point(x * 100, y * 100), 10)
-        //            .fillColor = 'purple';
-        //    }
-        //}
+        function onFrame(event) {
+            circles.forEach(function (circle) {
+                circle.fillColor.hue += 1;
+                circle.scale(0.9);
+            });
+        }
     </script>
 </head>
 <body>
